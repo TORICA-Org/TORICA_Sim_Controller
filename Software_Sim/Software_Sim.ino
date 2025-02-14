@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+//RUN(30)ピンをLOWにすることでリセット可能
+
 //プロトタイプ宣言
 long LoadCell_Read(int pin_slk, int pin_dout);
 long LoadCell_Averaging(long adc,char num);
@@ -17,6 +19,7 @@ int joystick_data_num = 1;
 int pin_slk[4] = {0, 2, 4, 6};
 int pin_dout[4] = {1, 3, 5, 7}; 
 
+//ポテンショメータのVCCは必ず3V3につなぐ
 //ピン指定
 #define POT_L 26 //ポテンショメータL
 #define POT_R 27 //ポテンショメータR

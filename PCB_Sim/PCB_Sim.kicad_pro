@@ -216,7 +216,10 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      "power_pin_not_driven|1524000|1346200|f566a5d6-61a1-4e2f-8c3f-d8fe68a68223|00000000-0000-0000-0000-000000000000|/c135e72d-b55a-419c-80ed-41b07cc6c18c|/c135e72d-b55a-419c-80ed-41b07cc6c18c|",
+      "power_pin_not_driven|1524000|1371600|bb402abd-8148-45e4-a725-5b6e8f917b95|00000000-0000-0000-0000-000000000000|/c135e72d-b55a-419c-80ed-41b07cc6c18c|/c135e72d-b55a-419c-80ed-41b07cc6c18c|"
+    ],
     "meta": {
       "version": 0
     },
@@ -465,7 +468,7 @@
     "last_paths": {
       "gencad": "",
       "idf": "",
-      "netlist": "",
+      "netlist": "PCB_Sim.net",
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
@@ -574,7 +577,7 @@
     "meta": {
       "version": 1
     },
-    "net_format_name": "",
+    "net_format_name": "KiCad",
     "page_layout_descr_file": "",
     "plot_directory": "",
     "spice_current_sheet_as_root": false,

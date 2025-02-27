@@ -161,7 +161,7 @@
 		(descr "JST XH series connector, S4B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
 		(tags "connector JST XH horizontal")
 		(property "Reference" "J3"
-			(at 3.75 -3.5 360)
+			(at 3.75 -3.5 0)
 			(layer "F.SilkS")
 			(uuid "ceaa16c5-15bf-4a55-b909-d4ce68c9d014")
 			(effects
@@ -172,7 +172,7 @@
 			)
 		)
 		(property "Value" "Loadcell_front_2"
-			(at 3.73 -5.44 360)
+			(at 3.73 -5.44 0)
 			(layer "F.SilkS")
 			(uuid "de4b7aa9-ef79-4e3a-b5bb-6dc308950557")
 			(effects
@@ -677,7 +677,7 @@
 			(uuid "ab6c2049-56a1-48e1-8a5e-6c1a0f706daa")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.75 3.45 360)
+			(at 3.75 3.45 0)
 			(layer "F.Fab")
 			(uuid "ee8d930f-b808-41af-b677-f03d79518f14")
 			(effects
@@ -1912,7 +1912,7 @@
 		(descr "JST XH series connector, S4B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
 		(tags "connector JST XH horizontal")
 		(property "Reference" "J5"
-			(at 3.75 -3.5 360)
+			(at 3.75 -3.5 0)
 			(layer "F.SilkS")
 			(uuid "11835d39-1893-44b3-b069-09a648358bcd")
 			(effects
@@ -1923,7 +1923,7 @@
 			)
 		)
 		(property "Value" "Loadcell_back_2"
-			(at 3.75 -5.44 360)
+			(at 3.75 -5.44 0)
 			(layer "F.SilkS")
 			(uuid "760ce199-2b9d-45cd-b3e7-17f188842248")
 			(effects
@@ -2428,7 +2428,7 @@
 			(uuid "cd4d814d-dfdb-4d56-b6ff-941135dd4df2")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.75 3.45 360)
+			(at 3.75 3.45 0)
 			(layer "F.Fab")
 			(uuid "ef33f75a-0545-4ed3-9c38-b7379c5817c2")
 			(effects
@@ -2608,7 +2608,7 @@
 		(descr "JST XH series connector, S4B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
 		(tags "connector JST XH horizontal")
 		(property "Reference" "J2"
-			(at 3.75 -3.5 360)
+			(at 3.75 -3.5 0)
 			(layer "F.SilkS")
 			(uuid "a407b0f7-70b0-468d-bf12-ada5d9798cb1")
 			(effects
@@ -2619,7 +2619,7 @@
 			)
 		)
 		(property "Value" "Loadcell_front_1"
-			(at 3.75 -5.44 360)
+			(at 3.75 -5.44 0)
 			(layer "F.SilkS")
 			(uuid "71a91bf1-4de0-4e26-83cd-ce0156fd0faa")
 			(effects
@@ -3124,7 +3124,7 @@
 			(uuid "d805fe92-9664-44e6-b762-10ec9d22fcc5")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.75 3.45 360)
+			(at 3.75 3.45 0)
 			(layer "F.Fab")
 			(uuid "6a3b372a-1b13-48d6-b465-b4688246f5ec")
 			(effects
@@ -3198,7 +3198,7 @@
 		(descr "JST XH series connector, S4B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
 		(tags "connector JST XH horizontal")
 		(property "Reference" "J4"
-			(at 3.75 -3.5 360)
+			(at 3.75 -3.5 0)
 			(layer "F.SilkS")
 			(uuid "32823971-9141-4f4e-9640-88e167f6448c")
 			(effects
@@ -3209,7 +3209,7 @@
 			)
 		)
 		(property "Value" "Loadcell_back_1"
-			(at 3.75 -5.44 360)
+			(at 3.75 -5.44 0)
 			(layer "F.SilkS")
 			(uuid "5aabd663-0509-445e-8674-1f8989f56548")
 			(effects
@@ -3714,7 +3714,7 @@
 			(uuid "bba5b668-c482-4869-bbb6-87373992005a")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.75 3.45 360)
+			(at 3.75 3.45 0)
 			(layer "F.Fab")
 			(uuid "fdcca5da-003b-4016-a357-59389d8e4c0a")
 			(effects
@@ -3788,7 +3788,7 @@
 		(descr "Through hole straight pin header, 2x20, 2.54mm pitch, double rows")
 		(tags "Through hole pin header THT 2x20 2.54mm double row")
 		(property "Reference" "U1"
-			(at 2.159 0 360)
+			(at 2.159 0 0)
 			(layer "F.SilkS")
 			(uuid "7a3da2b6-3d09-40e4-92b2-f38120c67f66")
 			(effects
@@ -3799,7 +3799,7 @@
 			)
 		)
 		(property "Value" "Pico"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "F.SilkS")
 			(uuid "e94f291d-7e4e-4484-ba6e-5f158b6ea90f")
 			(effects
@@ -4909,7 +4909,7 @@
 			)
 		)
 		(fp_text user "${REFERENCE}"
-			(at 2.159 0 360)
+			(at 2.159 0 0)
 			(layer "F.Fab")
 			(uuid "cd330e79-55ed-4b56-99d4-a3ac46f7e152")
 			(effects
@@ -6922,28 +6922,12 @@
 		(uuid "07865b9e-0e20-4d14-8047-cef9239b986d")
 	)
 	(segment
-		(start 167.64 91.44)
-		(end 163.83 91.44)
+		(start 158.75 69.85)
+		(end 140.97 69.85)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 21)
-		(uuid "03a61e74-c2f1-4e1e-b98c-457a651ce9f0")
-	)
-	(segment
-		(start 160.02 87.63)
-		(end 160.02 80.01)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 21)
-		(uuid "39c5fe4c-6404-4569-ac11-826a9ad82402")
-	)
-	(segment
-		(start 160.02 80.01)
-		(end 158.75 78.74)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 21)
-		(uuid "5289e0c6-64cf-4d3a-96f3-56cb4249a14c")
+		(uuid "143eccab-2642-47a6-ae76-82fd8d245cfb")
 	)
 	(segment
 		(start 163.83 91.44)
@@ -6951,31 +6935,47 @@
 		(width 0.2)
 		(layer "B.Cu")
 		(net 21)
-		(uuid "75c011be-3d2b-4ea2-9b51-24763d0c7443")
+		(uuid "14fe743a-0a6d-4cc3-a898-86633cc9315f")
 	)
 	(segment
-		(start 140.97 78.74)
-		(end 139.7 77.47)
+		(start 140.97 69.85)
+		(end 139.7 68.58)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 21)
-		(uuid "b57420b8-0230-464f-9bb6-17924a4cb9c7")
+		(uuid "5e2941a2-7ff3-4f46-8bf1-7227f1fbc68b")
 	)
 	(segment
-		(start 139.7 77.47)
+		(start 160.02 71.12)
+		(end 158.75 69.85)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 21)
+		(uuid "7f01684a-afd2-47dd-9b95-c2bd20220e81")
+	)
+	(segment
+		(start 160.02 87.63)
+		(end 160.02 71.12)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 21)
+		(uuid "91285ca5-d04c-40b0-8619-f8bac7f9a862")
+	)
+	(segment
+		(start 139.7 68.58)
 		(end 139.7 66.04)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 21)
-		(uuid "f4a07e3e-7c8f-4d25-892a-9ead8896d360")
+		(uuid "9f2ebb95-756c-4fab-af11-18d863df6aef")
 	)
 	(segment
-		(start 158.75 78.74)
-		(end 140.97 78.74)
+		(start 167.64 91.44)
+		(end 163.83 91.44)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 21)
-		(uuid "f55c0f27-293c-4f5b-aa51-c970115ae4e0")
+		(uuid "de90f077-07fe-4db1-a2e7-14cdc89816cf")
 	)
 	(segment
 		(start 162.52 116.84)

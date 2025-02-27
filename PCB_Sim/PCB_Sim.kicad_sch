@@ -1968,7 +1968,7 @@
 		(uuid "0df5a1e0-8992-444d-a36b-476483398126")
 	)
 	(no_connect
-		(at 132.08 105.41)
+		(at 132.08 67.31)
 		(uuid "14d244b3-1574-4e46-a441-bf5aa3327d0f")
 	)
 	(no_connect
@@ -2012,7 +2012,7 @@
 		(uuid "6f8d8d9e-c3df-4935-a8fd-f28d01dadcf5")
 	)
 	(no_connect
-		(at 132.08 102.87)
+		(at 132.08 64.77)
 		(uuid "761502b5-4a8a-46d5-83a0-80619bd2cdfe")
 	)
 	(no_connect
@@ -2271,7 +2271,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 64.77) (xy 132.08 64.77)
+			(xy 127 102.87) (xy 132.08 102.87)
 		)
 		(stroke
 			(width 0)
@@ -2481,7 +2481,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 67.31) (xy 132.08 67.31)
+			(xy 127 105.41) (xy 132.08 105.41)
 		)
 		(stroke
 			(width 0)
@@ -2561,7 +2561,7 @@
 		(uuid "00ab548e-5c16-4913-9ed9-990b61caec0f")
 	)
 	(label "PRMT"
-		(at 127 67.31 0)
+		(at 127 105.41 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2627,7 +2627,7 @@
 		(uuid "0e7b2cc1-1d9b-42a3-ba2d-8f6abaf4dcfb")
 	)
 	(label "PTMR"
-		(at 127 64.77 0)
+		(at 127 102.87 0)
 		(fields_autoplaced yes)
 		(effects
 			(font

@@ -988,8 +988,8 @@
 		)
 	)
 	(gr_rect
-		(start 135.1 53.34)
-		(end 113.1 83.34)
+		(start 113.1 53.34)
+		(end 135.1 83.34)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -999,8 +999,8 @@
 		(uuid "3d363165-2f17-4cb8-8c4d-e1600b7389f1")
 	)
 	(gr_circle
-		(center 96.6 65.8)
-		(end 98.7 65.8)
+		(center 91.6 65.8)
+		(end 93.7 65.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1031,8 +1031,8 @@
 		(uuid "1c325625-66f7-4bb7-9a3b-47cb238bd110")
 	)
 	(gr_circle
-		(center 151.6 65.8)
-		(end 153.7 65.8)
+		(center 156.6 65.8)
+		(end 158.7 65.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1042,7 +1042,7 @@
 		(uuid "2646f73e-e8a9-4862-9151-984e0b46f6bb")
 	)
 	(gr_line
-		(start 91.6 50.8)
+		(start 86.6 50.8)
 		(end 101.6 50.8)
 		(stroke
 			(width 0.1)
@@ -1052,7 +1052,7 @@
 		(uuid "2809b9a2-530f-4dad-aa73-79a8b458f04d")
 	)
 	(gr_line
-		(start 156.6 80.8)
+		(start 161.6 80.8)
 		(end 146.6 80.8)
 		(stroke
 			(width 0.1)
@@ -1062,8 +1062,8 @@
 		(uuid "2f4f10bc-445c-41f9-a64b-75892447d4ec")
 	)
 	(gr_line
-		(start 156.6 50.8)
-		(end 156.6 80.8)
+		(start 161.6 50.8)
+		(end 161.6 80.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1073,7 +1073,7 @@
 	)
 	(gr_line
 		(start 101.6 80.8)
-		(end 91.6 80.8)
+		(end 86.6 80.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1083,7 +1083,7 @@
 	)
 	(gr_line
 		(start 146.6 50.8)
-		(end 156.6 50.8)
+		(end 161.6 50.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1113,8 +1113,8 @@
 		(uuid "baf2b34a-9a47-45c1-a23d-726714bb3ede")
 	)
 	(gr_line
-		(start 91.6 50.8)
-		(end 91.6 80.8)
+		(start 86.6 50.8)
+		(end 86.6 80.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1260,7 +1260,7 @@
 	)
 	(gr_line
 		(start 101.6 45.72)
-		(end 96.6 45.72)
+		(end 91.6 45.72)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1270,7 +1270,7 @@
 	)
 	(gr_line
 		(start 146.6 50.8)
-		(end 146.6 45.72)
+		(end 146.6 45.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1300,8 +1300,8 @@
 		(uuid "b29d3325-c132-481d-907b-fc71a43b0109")
 	)
 	(gr_line
-		(start 151.6 45.72)
-		(end 151.6 77.470101)
+		(start 156.6 45.8)
+		(end 156.6 65.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1330,8 +1330,8 @@
 		(uuid "c6518b8c-53d4-433d-902b-de039fa06628")
 	)
 	(gr_line
-		(start 151.6 45.72)
-		(end 146.6 45.72)
+		(start 156.6 45.8)
+		(end 146.6 45.8)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1350,8 +1350,8 @@
 		(uuid "eae91e19-3ced-439d-863a-52a7806a5da1")
 	)
 	(gr_line
-		(start 96.6 45.72)
-		(end 96.6 77.470101)
+		(start 91.6 45.72)
+		(end 91.6 77.470101)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -1359,8 +1359,19 @@
 		(layer "User.2")
 		(uuid "fa16ab58-d649-40e1-8c2a-9011971d9468")
 	)
+	(gr_rect
+		(start 99.06 47.39)
+		(end 149.06 97.39)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "User.4")
+		(uuid "beb71410-11d2-4c93-bc23-1ed41d9e200a")
+	)
 	(gr_text "下穴の径\n3.2mm"
-		(at 151.6 69.85 0)
+		(at 156.6 69.85 0)
 		(layer "F.SilkS")
 		(uuid "38713262-e8f8-4493-a8a6-204ef24b0d81")
 		(effects
@@ -1372,7 +1383,7 @@
 		)
 	)
 	(gr_text "下穴の径\n3.2mm"
-		(at 96.6 69.85 0)
+		(at 91.6 69.85 0)
 		(layer "F.SilkS")
 		(uuid "d0130698-0a6d-4e37-abb2-a815bf8b8f40")
 		(effects

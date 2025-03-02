@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <TORICA_ICS.h>
 
 //RUN(30)ピンをLOWにすることでリセット可能
 
@@ -13,23 +14,12 @@ float LoadCell_getGram(char num);
 
 float offset[4];
 
-int joystick_data_num = 1; 
-
 //forward, forward, backward, backward
-int pin_slk[4] = {0, 2, 4, 6};
-int pin_dout[4] = {1, 3, 5, 7}; 
+int pin_slk[4] = {2, 4, 6, 8};
+int pin_dout[4] = {3, 5, 7, 9}; 
 
-//ポテンショメータのVCCは必ず3V3につなぐ
-//ピン指定
-#define POT_L 26 //ポテンショメータL
-#define POT_R 27 //ポテンショメータR
-
-//感度
-const float sensitivity = 1.0;
-
-//ゼロ入力
-float potL_default = 0.0; //L
-float potR_default = 0.0; //R
+//TORICA_ICSインスタンス化
+TORICA_ICS maneuver;
 
 void setup() {
   //pinMode設定（サンプルのAE_HX711_Initに対応）
@@ -51,55 +41,30 @@ void setup() {
   } 
   
   //ピン割り当て
-  pinMode(POT_L, INPUT);
-  pinMode(POT_R, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);//動作確認用LED
-  
-  //analogReadの分解能を12bitに設定
-  analogReadResolution(12);
   
   //デバッグ用シリアルを開始
   Serial.begin(115200);
   
-  //電源投入時にポテンショメータの値を複数回読み平均をとる
-  for (int i = 0; i < 5; i++) {
-    potL_default += (float)analogRead(POT_L);
-    potR_default += (float)analogRead(POT_R);
-  }
-  potL_default /= 5.0;
-  potR_default /= 5.0;
+  //ICS用UARTを開始
+  Serial1.setTX(12);
+  Serial1.setRX(13);
+  Serial1.begin(115200);
 
   delay(5);
+  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(22, HIGH); //READY_LED
 }
 
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);
-
   float data[5];
   char trans_data[100];
 
-  for(int i = 0; i < 4; ++i){
+  for(int i = 0; i < 4; ++i) {
     data[i] = (AE_HX711_getGram(10, pin_slk[i], pin_dout[i])-offset[i])*0.6125;
   }
-  
-  //不感帯（この値は左右それぞれ適用する）
-  float dead_zone = 50.0;
-  
-  //ポテンショメータの値
-  float potL = (float)analogRead(POT_L); //L
-  float potR = (float)analogRead(POT_R); //R
-  
-  //ポテンショメータの値を左右統合
-  float rudder = 0.0; //統合先変数
-  if (potL < potL_default - dead_zone) {
-    rudder += potL - (potL_default - dead_zone);
-  }
-  if (potR_default + dead_zone < potR) {
-    rudder += potR - (potR_default + dead_zone);
-  }
-  rudder *= -1; //LR反転
-  rudder *= sensitivity; //感度適用
-  data[4] = rudder;
+
+  data[4] = (float)maneuver.read_Angle();
 
   sprintf(trans_data,"%f,%f,%f,%f,%f\n",data[0],data[1],data[2],data[3],data[4]);
   Serial.print(trans_data);
@@ -108,8 +73,7 @@ void loop() {
   delay(10);
 }
 
-long AE_HX711_Read(int pin_slk, int pin_dout)
-{
+long AE_HX711_Read(int pin_slk, int pin_dout) {
   long data=0;
   while(digitalRead(pin_dout)!=0);
   delayMicroseconds(10);
@@ -129,15 +93,13 @@ long AE_HX711_Read(int pin_slk, int pin_dout)
   return data^0x800000; 
 }
 
-long AE_HX711_Averaging(long adc,char num,int pin_slk, int pin_dout)
-{
+long AE_HX711_Averaging(long adc,char num,int pin_slk, int pin_dout) {
   long sum = 0;
   for (int i = 0; i < num; i++) sum += AE_HX711_Read(pin_slk, pin_dout);
   return sum / num;
 }
 
-float AE_HX711_getGram(char num, int pin_slk, int pin_dout)
-{
+float AE_HX711_getGram(char num, int pin_slk, int pin_dout) {
   #define HX711_R1  20000.0f
   #define HX711_R2  8200.0f
   #define HX711_VBG 1.25f
@@ -158,4 +120,149 @@ float AE_HX711_getGram(char num, int pin_slk, int pin_dout)
   data =  data / HX711_SCALE;
 
   return data;
+}
+
+//====以下，スピーカー関連の処理====
+#include <TORICA_UART.h>
+TORICA_UART Sim_UART;
+
+enum {
+  FAST,
+  NORMAL,
+  SLOW
+} speed_level = NORMAL;
+
+enum {
+ PLATFORM,
+ HIGH_LEVEL,
+ MID_LEVEL,
+ LOW_LEVEL 
+} flight_phase = PLATFORM;
+
+float airspeed = 0;
+float altitude = 0;
+
+void setup1() {
+  pinMode(21, OUTPUT); //O_SPK
+}
+
+void loop1() {
+  int readnum = Sim_UART.readUART();
+  int sim_data_num = 2;
+  if (readnum == sim_data_num) {
+    airspeed = Sim_UART.UART_data[0];
+    altitude = Sim_UART.UART_data[1];
+  }
+  speed_level_check();
+  determine_flight_phase();
+  speaker();
+}
+
+void speed_level_check() {
+  if (airspeed > 1.5) {
+    speed_level = FAST;
+  } else if (airspeed > 1.0) {
+    speed_level = NORMAL;
+  } else {
+    speed_level = SLOW;
+  }
+}
+
+void determine_flight_phase() {
+  switch (flight_phase) {
+    case PLATFORM:
+      {
+        static int over_urm_range_count = 0;
+        if (filtered_under_urm_altitude_m.get() > 9.0) {
+          over_urm_range_count++;
+        } else {
+          over_urm_range_count = 0;
+        }
+        bool over_urm_range = false;
+        // 超音波が測定不能な状態が2秒以上続いたとき
+        if (over_urm_range_count >= 100) {
+          over_urm_range = true;
+        }
+        // 気圧センサにより下降したと判断したとき
+        bool descending = estimated_altitude_lake_m < 10.2;
+        if ((over_urm_range || descending) && millis() > 15000) {
+          flight_phase = TAKEOFF;
+          takeoff_time_ms = millis();
+        }
+        if (over_urm_range && millis() > 15000) {
+          SerialWireless.print("\n\nover_urm_range\n\n");
+        }
+        if (descending && millis() > 15000) {
+          SerialWireless.print("\n\ndescending\n\n");
+        }
+      }
+      break;
+    case TAKEOFF:
+      if (millis() - takeoff_time_ms > 3000) {
+        flight_phase = HIGH_LEVEL;
+      }
+      break;
+    case HIGH_LEVEL:
+      // 超音波が測定できるようになったとき
+      if (filtered_under_urm_altitude_m.get() < 1.0) {
+        flight_phase = MID_LEVEL;
+      }
+      break;
+    case MID_LEVEL:
+      // 高度が1m以下になったとき
+      if (filtered_under_urm_altitude_m.get() < 0.3) {
+        flight_phase = LOW_LEVEL;
+      }
+      break;
+    case LOW_LEVEL:
+      break;
+    default:
+      break;
+  }
+}
+
+void speaker() {
+
+  static int sound_freq = 440;
+  static int spk_flag = 0;
+  static uint32_t speaker_last_change_time = millis();
+  static uint32_t  sound_duration = 100;  //音が出ている時間
+
+  switch (airspeed) {
+    case SLOW:
+      sound_freq = 440;
+      break;
+    case NORMAL:
+      sound_freq = 880;
+      break;
+    case FAST:
+      sound_freq = 1320;
+      break;
+    default:
+      break;
+  }
+
+  int interval;
+  switch (flight_phase) {
+    case PLATFORM:
+      interval = 1000;
+      break;
+    case HIGH_LEVEL:
+      interval = 500;
+      break;
+    case MID_LEVEL:
+      interval = 250;
+      break;
+    case LOW_LEVEL:
+      interval = 125;
+      break;
+    default:
+      interval = 0;
+      break;
+  }
+
+  if (flight_phase != PLATFORM) {
+    tone(O_SPK, sound_freq, 100);
+    delay(interval);
+  }
 }

@@ -469,7 +469,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "PCB_Sim.net",
-      "plot": "",
+      "plot": "Gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",

@@ -19,7 +19,7 @@ int pin_slk[4] = {2, 4, 6, 8};
 int pin_dout[4] = {3, 5, 7, 9}; 
 
 //TORICA_ICSインスタンス化
-TORICA_ICS maneuver;
+TORICA_ICS maneuver(&Serial1);
 
 void setup() {
   //pinMode設定（サンプルのAE_HX711_Initに対応）
@@ -124,7 +124,9 @@ float AE_HX711_getGram(char num, int pin_slk, int pin_dout) {
 
 //====以下，スピーカー関連の処理====
 #include <TORICA_UART.h>
-TORICA_UART Sim_UART;
+TORICA_UART Sim_UART(&Serial);
+
+#define O_SPK 21
 
 enum {
   FAST,
@@ -139,96 +141,74 @@ enum {
  LOW_LEVEL 
 } flight_phase = PLATFORM;
 
-float airspeed = 0;
-float altitude = 0;
+bool TAKEOFF = false;
+
+float airspeed_ms = 0.0;
+float altitude_m = 0.0;
 
 void setup1() {
-  pinMode(21, OUTPUT); //O_SPK
+  pinMode(O_SPK, OUTPUT);
 }
 
 void loop1() {
   int readnum = Sim_UART.readUART();
   int sim_data_num = 2;
   if (readnum == sim_data_num) {
-    airspeed = Sim_UART.UART_data[0];
-    altitude = Sim_UART.UART_data[1];
+    airspeed_ms = Sim_UART.UART_data[0];
+    altitude_m = Sim_UART.UART_data[1];
   }
   speed_level_check();
+  takeoff_check();
   determine_flight_phase();
   speaker();
 }
 
 void speed_level_check() {
-  if (airspeed > 1.5) {
+  if (airspeed_ms > 1.5) {
     speed_level = FAST;
-  } else if (airspeed > 1.0) {
+  } else if (airspeed_ms > 1.0) {
     speed_level = NORMAL;
   } else {
     speed_level = SLOW;
   }
 }
 
+void takeoff_check() {
+  if (altitude_m >= 10.5 || 0.0 >= altitude_m) {
+    TAKEOFF = false;
+  }
+  else {
+    TAKEOFF = true;
+  }
+}
+
 void determine_flight_phase() {
-  switch (flight_phase) {
-    case PLATFORM:
-      {
-        static int over_urm_range_count = 0;
-        if (filtered_under_urm_altitude_m.get() > 9.0) {
-          over_urm_range_count++;
-        } else {
-          over_urm_range_count = 0;
-        }
-        bool over_urm_range = false;
-        // 超音波が測定不能な状態が2秒以上続いたとき
-        if (over_urm_range_count >= 100) {
-          over_urm_range = true;
-        }
-        // 気圧センサにより下降したと判断したとき
-        bool descending = estimated_altitude_lake_m < 10.2;
-        if ((over_urm_range || descending) && millis() > 15000) {
-          flight_phase = TAKEOFF;
-          takeoff_time_ms = millis();
-        }
-        if (over_urm_range && millis() > 15000) {
-          SerialWireless.print("\n\nover_urm_range\n\n");
-        }
-        if (descending && millis() > 15000) {
-          SerialWireless.print("\n\ndescending\n\n");
-        }
-      }
-      break;
-    case TAKEOFF:
-      if (millis() - takeoff_time_ms > 3000) {
-        flight_phase = HIGH_LEVEL;
-      }
-      break;
-    case HIGH_LEVEL:
-      // 超音波が測定できるようになったとき
-      if (filtered_under_urm_altitude_m.get() < 1.0) {
-        flight_phase = MID_LEVEL;
-      }
-      break;
-    case MID_LEVEL:
-      // 高度が1m以下になったとき
-      if (filtered_under_urm_altitude_m.get() < 0.3) {
-        flight_phase = LOW_LEVEL;
-      }
-      break;
-    case LOW_LEVEL:
-      break;
-    default:
-      break;
+  if (TAKEOFF == false) {
+    flight_phase = PLATFORM;
+  }
+  else {
+    if (altitude_m > 5.0) {
+      flight_phase = HIGH_LEVEL;
+    }
+    else if (altitude_m > 1.0) {
+      flight_phase = MID_LEVEL;
+    }
+    else if (altitude_m > 0.0) {
+      flight_phase = LOW_LEVEL;
+    }
+    else {
+      TAKEOFF = false;
+    }
   }
 }
 
 void speaker() {
-
   static int sound_freq = 440;
   static int spk_flag = 0;
   static uint32_t speaker_last_change_time = millis();
   static uint32_t  sound_duration = 100;  //音が出ている時間
 
-  switch (airspeed) {
+  switch (speed_level) {
     case SLOW:
       sound_freq = 440;
       break;

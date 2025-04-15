@@ -2,6 +2,7 @@
 //#include <TORICA_ICS.h>
 
 //RUN(30)ピンをLOWにすることでリセット可能
+#define READY_LED 22
 
 //プロトタイプ宣言
 long LoadCell_Read(int pin_slk, int pin_dout);
@@ -54,7 +55,8 @@ void setup() {
   } 
   
   //ピン割り当て
-  pinMode(LED_BUILTIN, OUTPUT);//動作確認用LED
+  pinMode(LED_BUILTIN, OUTPUT); // 動作確認用LED
+  pinMode(READY_LED, OUTPUT);
   
   //デバッグ用シリアルを開始
   Serial.begin(115200);
@@ -66,7 +68,7 @@ void setup() {
 
   delay(5);
   digitalWrite(LED_BUILTIN, HIGH);
-  digitalWrite(22, HIGH); //READY_LED
+  digitalWrite(READY_LED, HIGH);
 }
 
 void loop() {

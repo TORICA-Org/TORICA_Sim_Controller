@@ -37,26 +37,34 @@ int servo_pos = 7500; //こちらでは最適化される影響で値が更新�
 
 void setup() {
   //pinMode設定（サンプルのAE_HX711_Initに対応）
-  for(int i = 0; i < 4; ++i){
+  for(int i = 0; i < 4; i++){
     pinMode(pin_slk[i],OUTPUT);
     pinMode(pin_dout[i],INPUT);
   }
+  pinMode(LED_BUILTIN, OUTPUT); // 動作確認用LED
+  pinMode(READY_LED, OUTPUT);
 
   //Reset（サンプルのAE_HX711_Resetに対応）
-  for(int i = 0; i < 1; ++i){
+  for(int i = 0; i < 4; i++){ // 「i < 1」となっていたのを修正 (4/17)
     digitalWrite(pin_slk[i],1);
     delayMicroseconds(100);
     digitalWrite(pin_slk[i],0);
     delayMicroseconds(100); 
   }
+
+  // ここで3秒待機するように変更 (4/17)
+  for (int i = 0; i < 3; i++) {
+    digitalWrite(LED_BUILTIN, HIGH);
+    digitalWrite(READY_LED, HIGH);
+    delay(500);
+    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(READY_LED, LOW);
+    delay(500);
+  }
   
-  for(int i = 0; i < 4; ++i){
+  for(int i = 0; i < 4; i++){
     offset[i] = AE_HX711_getGram(30,2*i,2*i+1);
   } 
-  
-  //ピン割り当て
-  pinMode(LED_BUILTIN, OUTPUT); // 動作確認用LED
-  pinMode(READY_LED, OUTPUT);
   
   //デバッグ用シリアルを開始
   Serial.begin(115200);
@@ -75,7 +83,7 @@ void loop() {
   float data[5];
   char trans_data[100];
 
-  for(int i = 0; i < 4; ++i) {
+  for(int i = 0; i < 4; i++) {
     data[i] = (AE_HX711_getGram(10, pin_slk[i], pin_dout[i])-offset[i])*0.6125;
   }
 

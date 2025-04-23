@@ -6,7 +6,7 @@
 
 //プロトタイプ宣言
 long LoadCell_Read(int pin_slk, int pin_dout);
-long LoadCell_Averaging(long adc,char num);
+long LoadCell_Averaging(long adc, char num);
 float LoadCell_getGram(char num);
 
 // 使用しているロードセルは定格出力0.1mV 定格容量50kg （秋月のサンプルには選択肢がないので注意）
@@ -17,7 +17,7 @@ float offset[4];
 
 //forward, forward, backward, backward
 int pin_slk[4] = {2, 4, 6, 8};
-int pin_dout[4] = {3, 5, 7, 9}; 
+int pin_dout[4] = {3, 5, 7, 9};
 
 //TORICA_ICSインスタンス化
 //TORICA_ICS maneuver(&Serial1);
@@ -37,38 +37,49 @@ int servo_pos = 7500; //こちらでは最適化される影響で値が更新�
 
 void setup() {
   //pinMode設定（サンプルのAE_HX711_Initに対応）
-  for(int i = 0; i < 4; i++){
-    pinMode(pin_slk[i],OUTPUT);
-    pinMode(pin_dout[i],INPUT);
+  for (int i = 0; i < 4; i++) {
+    pinMode(pin_slk[i], OUTPUT);
+    pinMode(pin_dout[i], INPUT);
   }
   pinMode(LED_BUILTIN, OUTPUT); // 動作確認用LED
   pinMode(READY_LED, OUTPUT);
 
   //Reset（サンプルのAE_HX711_Resetに対応）
-  for(int i = 0; i < 4; i++){ // 「i < 1」となっていたのを修正 (4/17)
-    digitalWrite(pin_slk[i],1);
+  for (int i = 0; i < 4; i++) { // 「i < 1」となっていたのを修正 (4/17)
+    digitalWrite(pin_slk[i], 1);
     delayMicroseconds(100);
-    digitalWrite(pin_slk[i],0);
-    delayMicroseconds(100); 
+    digitalWrite(pin_slk[i], 0);
+    delayMicroseconds(100);
   }
 
-  // ここで3秒待機するように変更 (4/17)
-  for (int i = 0; i < 3; i++) {
+  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(READY_LED, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(READY_LED, LOW);
+  delay(500);
+
+  for (int i = 0; i < 4; i++) {
+    float sum = 0;
     digitalWrite(LED_BUILTIN, HIGH);
     digitalWrite(READY_LED, HIGH);
-    delay(500);
+    for (int j = 0; j < 5; j++) {
+      sum += AE_HX711_getGram(pin_slk[i], pin_dout[i]);
+    }
     digitalWrite(LED_BUILTIN, LOW);
     digitalWrite(READY_LED, LOW);
-    delay(500);
+    for (int j = 0; j < 5; j++) {
+      sum += AE_HX711_getGram(pin_slk[i], pin_dout[i]);
+    }
+    offset[i] = sum / 10;
+    Serial.print("Resetting ... [");
+    Serial.print(i + 1);
+    Serial.println("/4]");
   }
-  
-  for(int i = 0; i < 4; i++){
-    offset[i] = AE_HX711_getGram(30,2*i,2*i+1);
-  } 
-  
+
   //デバッグ用シリアルを開始
   Serial.begin(115200);
-  
+
   //ICS用UARTを開始
   Serial1.setTX(12);
   Serial1.setRX(13);
@@ -83,63 +94,51 @@ void loop() {
   float data[5];
   char trans_data[100];
 
-  for(int i = 0; i < 4; i++) {
-    data[i] = (AE_HX711_getGram(10, pin_slk[i], pin_dout[i])-offset[i])*0.6125;
+  for (int i = 0; i < 4; i++) {
+    data[i] = AE_HX711_getGram(pin_slk[i], pin_dout[i]) - offset[i];
   }
 
   data[4] = (float)servo_pos;
 
-  sprintf(trans_data,"%f,%f,%f,%f,%f\n",data[0],data[1],data[2],data[3],data[4]);
+  sprintf(trans_data, "%f,%f,%f,%f,%f\n", data[0], data[1], data[2], data[3], data[4]);
   Serial.print(trans_data);
   Serial.println();
-  
+
   delay(10);
 }
 
 long AE_HX711_Read(int pin_slk, int pin_dout) {
-  long data=0;
-  while(digitalRead(pin_dout)!=0);
+  long data = 0;
+  while (digitalRead(pin_dout) != 0);
   delayMicroseconds(10);
-  for(int i=0;i<24;i++)
+  for (int i = 0; i < 24; i++)
   {
-    digitalWrite(pin_slk,1);
+    digitalWrite(pin_slk, 1);
     delayMicroseconds(5);
-    digitalWrite(pin_slk,0);
+    digitalWrite(pin_slk, 0);
     delayMicroseconds(5);
-    data = (data<<1)|(digitalRead(pin_dout));
+    data = (data << 1) | (digitalRead(pin_dout));
   }
-  //Serial.println(data,HEX);   
-  digitalWrite(pin_slk,1);
+  //Serial.println(data,HEX);
+  digitalWrite(pin_slk, 1);
   delayMicroseconds(10);
-  digitalWrite(pin_slk,0);
+  digitalWrite(pin_slk, 0);
   delayMicroseconds(10);
-  return data^0x800000; 
+  return data ^ 0x800000;
 }
 
-long AE_HX711_Averaging(long adc,char num,int pin_slk, int pin_dout) {
-  long sum = 0;
-  for (int i = 0; i < num; i++) sum += AE_HX711_Read(pin_slk, pin_dout);
-  return sum / num;
-}
 
-float AE_HX711_getGram(char num, int pin_slk, int pin_dout) {
-  #define HX711_R1  20000.0f
-  #define HX711_R2  8200.0f
-  #define HX711_VBG 1.25f
-  #define HX711_AVDD      4.2987f//(HX711_VBG*((HX711_R1+HX711_R2)/HX711_R2))
-  #define HX711_ADC1bit   HX711_AVDD/16777216 //16777216=(2^24)
-  #define HX711_PGA 128
-  #define HX711_SCALE     (OUT_VOL * HX711_AVDD / LOAD *HX711_PGA)
-  
+float AE_HX711_getGram(int pin_slk, int pin_dout) {
+#define HX711_R1  20000.0f
+#define HX711_R2  8200.0f
+#define HX711_VBG 1.25f
+#define HX711_AVDD      4.2987f//(HX711_VBG*((HX711_R1+HX711_R2)/HX711_R2))
+#define HX711_ADC1bit   HX711_AVDD/16777216 //16777216=(2^24)
+#define HX711_PGA 128
+#define HX711_SCALE     (OUT_VOL * HX711_AVDD / LOAD *HX711_PGA)
+
   float data;
-
-  //data = AE_HX711_Averaging(AE_HX711_Read(pin_slk,pin_dout),num,pin_slk,pin_dout)*HX711_ADC1bit; 
-  data = AE_HX711_Read(pin_slk,pin_dout)*HX711_ADC1bit;
-  
-  //Serial.println( HX711_AVDD);   
-  //Serial.println( HX711_ADC1bit);   
-  //Serial.println( HX711_SCALE);   
-  //Serial.println( data);   
+  data = AE_HX711_Read(pin_slk, pin_dout) * HX711_ADC1bit;
   data =  data / HX711_SCALE;
 
   return data;

@@ -29,7 +29,7 @@ const int TIMEOUT = 10; //タイムアウト
 const float sensitivity = 1.0;
 
 //操舵角
-const float rudderAngleDeg = 30.0;
+const float rudderAngleDeg = 15.0; // 5/6 守山さんの意見により試験的に設定(30→15)
 
 //ゼロ入力
 float potL_default = 0.0; //L

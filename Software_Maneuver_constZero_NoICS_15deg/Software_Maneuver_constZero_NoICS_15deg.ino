@@ -1,22 +1,17 @@
-// 5/15更新
+// 最終更新日: 20250515
+
 // 直感的な入力量評価のため，ラダー入力を百分率に変更
 // 挙動を安定させるため，フル入力時・無入力時の値を定数化
 
-// ICSを使わず，UARTでの通信です
-
-#include <Arduino.h>
-//#include <IcsHardSerialClass.h>
-
-// 20250213:note
 // 入力値の変化は
 // Lが減少
 // Rが増加
-// rudder:
-//    L <=> R
-// -500 <=> 500
 // servo_pos:
 // 135°(L)<=>  30°<=> -15°<=> 0°(N)<=> -15°<=> -30°<=> -135°(R)
 // 11500  <=> 8389<=> 7944<=> 7500 <=> 7056<=> 6611<=> 3500
+
+#include <Arduino.h>
+//#include <IcsHardSerialClass.h>
 
 // ピン指定
 #define POT_L 26 // ポテンショメータL
@@ -44,7 +39,7 @@ const float potR_full = 3230.0;
 //IcsHardSerialClass krs(&Serial1,EN_PIN,BAUDRATE,TIMEOUT);
 
 // プロトタイプ宣言
-float float_map (float val, float in_min, float in_max, float out_min, float out_max);
+float float_map (float val, float in_min, float in_max, float out_min, float out_max, float sensitivity);
 
 void setup() {
   // ピン割り当て
@@ -86,8 +81,8 @@ void loop() {
   float potR = (float)analogRead(POT_R); // R
 
   // 百分率に変換 + 感度適用
-  float potL_input = float_map(potL, potL_zero, potL_full, 0, 100)*sensitivity;
-  float potR_input = float_map(potR, potR_zero, potR_full, 0, 100)*sensitivity;
+  float potL_input = float_map(potL, potL_zero, potL_full, 0, 100, sensitivity);
+  float potR_input = float_map(potR, potR_zero, potR_full, 0, 100, sensitivity);
 
   Serial.print("POT_L/ POT_R: ");
   Serial.print(potL_input);
@@ -95,8 +90,8 @@ void loop() {
   Serial.print(potR_input);
   Serial.println("%");
 
-  //ポテンショメータの値を左右統合
-  float rudder = 0.0; //統合先変数
+  // ポテンショメータの値を左右統合
+  float rudder = 0.0; // 統合先変数
   if (potL_input > dead_zone) {
     rudder += potL_input - dead_zone;
   }
@@ -108,7 +103,7 @@ void loop() {
   Serial.print(rudder);
   Serial.println("%");
 
-  //サーボの値域に変換
+  // サーボの値域に変換
   float servo_pos = servo_neutral;
   if (rudder < 0.0) {
     servo_pos = float_map(rudder, -100, 0, servo_min, servo_neutral);
@@ -117,7 +112,7 @@ void loop() {
     servo_pos = float_map(rudder, 0, 100, servo_neutral, servo_max);
   }
 
-  //サーボの最小値・最大値を判定
+  // サーボの最小値・最大値を判定
   if (servo_pos < servo_min) {
     servo_pos = servo_min;
   }
@@ -128,18 +123,31 @@ void loop() {
   Serial.print("SERVO_POS: ");
   Serial.println(servo_pos);
   
-  //サーボ（ID:0）をservo_posだけ駆動
+  // サーボ（ID:0）をservo_posだけ駆動
   //krs.setPos(0, (int)servo_pos);
   Serial1.println((int)servo_pos);
   delay(10);
 }
 
-//map関数のfloat型版 + 最大・最小値判定
-//val: 変換したい値
-//in_min: 変換前最小値
-//in_max: 変換前最大値
-//out_min: 変換後最小値
-//out_min: 変換後最大値
+// map関数のfloat型版 + 最大・最小値判定 + 感度適用
+// val: 変換したい値
+// in_min: 変換前最小値
+// in_max: 変換前最大値
+// out_min: 変換後最小値
+// out_min: 変換後最大値
+float float_map (float val, float in_min, float in_max, float out_min, float out_max, float sensitivity) {
+  float out = out_min + (val - in_min)*(out_max - out_min)/(in_max - in_min);
+  out *= sensitivity;
+  if (out < out_min) {
+    out = out_min;
+  }
+  else if (out_max < out) {
+    out = out_max;
+  }
+  return out;
+}
+
+// 感度省略版オーバーロード
 float float_map (float val, float in_min, float in_max, float out_min, float out_max) {
   float out = out_min + (val - in_min)*(out_max - out_min)/(in_max - in_min);
   if (out < out_min) {

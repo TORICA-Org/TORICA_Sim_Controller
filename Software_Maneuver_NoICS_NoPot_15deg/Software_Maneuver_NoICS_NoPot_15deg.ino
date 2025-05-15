@@ -1,5 +1,7 @@
 //4/1Simテスト用
 //ICSを使わず，UARTでの通信です
+//5/6作成
+//ニュートラル調整用可変抵抗省略版です
 
 #include <Arduino.h>
 //#include <IcsHardSerialClass.h>
@@ -78,7 +80,8 @@ void loop() {
   float dead_zone = 50.0;
   
   //サーボ
-  float servo_neutral = (float)(7500 + analogRead(OFFSET) - 2000); //ニュートラル
+  //float servo_neutral = (float)(7500 + analogRead(OFFSET) - 2000); //ニュートラル
+  float servo_neutral = 7500.0;
   float servo_min = servo_neutral - 4000.0*rudderAngleDeg/135.0; //最小値
   float servo_max = servo_neutral + 4000.0*rudderAngleDeg/135.0; //最大値
   
@@ -104,6 +107,13 @@ void loop() {
   }
   rudder *= -1; //LR反転
   rudder *= sensitivity; //感度適用
+
+  if (rudder < -500) {
+    rudder = -500;
+  }
+  else if (500 < rudder) {
+    rudder = 500;
+  }
   
   Serial.print("RUDDER: ");
   Serial.println(rudder);

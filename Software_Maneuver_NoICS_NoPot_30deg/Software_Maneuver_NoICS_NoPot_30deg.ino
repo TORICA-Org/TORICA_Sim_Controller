@@ -31,7 +31,7 @@ const int TIMEOUT = 10; //タイムアウト
 const float sensitivity = 1.0;
 
 //操舵角
-const float rudderAngleDeg = 15.0; // 5/6 守山さんの意見により試験的に設定(30→15)
+const float rudderAngleDeg = 30.0;
 
 //ゼロ入力
 float potL_default = 0.0; //L
@@ -107,6 +107,13 @@ void loop() {
   }
   rudder *= -1; //LR反転
   rudder *= sensitivity; //感度適用
+
+  if (rudder < -500) {
+    rudder = -500;
+  }
+  else if (500 < rudder) {
+    rudder = 500;
+  }
   
   Serial.print("RUDDER: ");
   Serial.println(rudder);

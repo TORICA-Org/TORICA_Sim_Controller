@@ -39,7 +39,7 @@ const float potR_full = 3230.0;
 //IcsHardSerialClass krs(&Serial1,EN_PIN,BAUDRATE,TIMEOUT);
 
 // プロトタイプ宣言
-float float_map (float val, float in_min, float in_max, float out_min, float out_max, float sensitivity);
+float float_map (float val, float in_min, float in_max, float out_min, float out_max, float sensitivity = 1);
 
 void setup() {
   // ピン割り当て
@@ -53,7 +53,6 @@ void setup() {
   
   // サーボモータの通信初期設定
   //krs.begin();
-
   Serial1.begin(115200);
   
   // デバッグ用シリアルを開始
@@ -138,18 +137,6 @@ void loop() {
 float float_map (float val, float in_min, float in_max, float out_min, float out_max, float sensitivity) {
   float out = out_min + (val - in_min)*(out_max - out_min)/(in_max - in_min);
   out *= sensitivity;
-  if (out < out_min) {
-    out = out_min;
-  }
-  else if (out_max < out) {
-    out = out_max;
-  }
-  return out;
-}
-
-// 感度省略版オーバーロード
-float float_map (float val, float in_min, float in_max, float out_min, float out_max) {
-  float out = out_min + (val - in_min)*(out_max - out_min)/(in_max - in_min);
   if (out < out_min) {
     out = out_min;
   }

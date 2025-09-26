@@ -1,4 +1,4 @@
-26648032861755928
+26735976755203681
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -97110,6 +97110,139 @@ rotary encoder illuminated switch vertical
 0
 9
 8
+Seeed Studio XIAO Series Library
+XIAO-Add-On
+
+
+0
+56
+14
+Seeed Studio XIAO Series Library
+XIAO-ESP32C3-DIP
+
+
+0
+28
+14
+Seeed Studio XIAO Series Library
+XIAO-ESP32C3-SMD
+
+
+0
+22
+22
+Seeed Studio XIAO Series Library
+XIAO-ESP32C6-DIP
+
+
+0
+28
+14
+Seeed Studio XIAO Series Library
+XIAO-ESP32C6-SMD
+
+
+0
+24
+24
+Seeed Studio XIAO Series Library
+XIAO-ESP32S3-DIP
+
+
+0
+28
+14
+Seeed Studio XIAO Series Library
+XIAO-ESP32S3-SMD
+
+
+0
+24
+24
+Seeed Studio XIAO Series Library
+XIAO-MG24-DIP
+
+
+0
+58
+24
+Seeed Studio XIAO Series Library
+XIAO-MG24-SMD
+
+
+0
+32
+32
+Seeed Studio XIAO Series Library
+XIAO-RA4M1-DIP
+
+
+0
+58
+24
+Seeed Studio XIAO Series Library
+XIAO-RA4M1-SMD
+
+
+0
+30
+30
+Seeed Studio XIAO Series Library
+XIAO-RP2040-DIP
+
+
+0
+28
+14
+Seeed Studio XIAO Series Library
+XIAO-RP2040-SMD
+
+
+0
+20
+20
+Seeed Studio XIAO Series Library
+XIAO-RP2350-DIP
+
+
+0
+58
+24
+Seeed Studio XIAO Series Library
+XIAO-RP2350-SMD
+
+
+0
+30
+30
+Seeed Studio XIAO Series Library
+XIAO-SAMD21-DIP
+
+
+0
+28
+14
+Seeed Studio XIAO Series Library
+XIAO-SAMD21-SMD
+
+
+0
+20
+20
+Seeed Studio XIAO Series Library
+XIAO-nRF52840-DIP
+
+
+0
+28
+14
+Seeed Studio XIAO Series Library
+XIAO-nRF52840-SMD
+
+
+0
+22
+22
 Sensor
 ASAIR_AM2302_P2.54mm_Lead2.75mm_TabDown
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/AM2302.pdf
@@ -99207,6 +99340,223 @@ Symbol
 WEEE-Logo_28.1x40mm_SilkScreen
 Waste Electrical and Electronic Equipment Directive https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32012L0019#page=29
 Logo WEEE
+0
+0
+0
+TORICA_Hardwarelib
+3386K
+
+
+0
+3
+3
+TORICA_Hardwarelib
+AE-BNO055
+
+
+0
+8
+8
+TORICA_Hardwarelib
+AS5600(vertical)
+
+
+0
+6
+6
+TORICA_Hardwarelib
+AS5600BB_THT
+
+
+0
+6
+6
+TORICA_Hardwarelib
+Audio_Jack_3P
+秋月で販売されている3.5mmステレオミニジャック
+
+0
+4
+3
+TORICA_Hardwarelib
+CP_Radial_D5.0mm_P2.50mm
+CP, Radial series, Radial, pin pitch=2.50mm, , diameter=5mm, Electrolytic Capacitor
+CP Radial series Radial pin pitch 2.50mm  diameter 5mm Electrolytic Capacitor
+0
+2
+2
+TORICA_Hardwarelib
+Converter_DCDC_RECOM_R-78E-0.5_THT
+DCDC-Converter, RECOM, RECOM_R-78E-0.5, SIP-3, pitch 2.54mm, package size 11.6x8.5x10.4mm^3, https://www.recom-power.com/pdf/Innoline/R-78Exx-0.5.pdf
+dc-dc recom buck sip-3 pitch 2.54mm
+0
+3
+3
+TORICA_Hardwarelib
+DIP-28_W15.24mm
+28-lead though-hole mounted DIP package, row spacing 15.24 mm (600 mils)
+THT DIP DIL PDIP 2.54mm 15.24mm 600mil
+0
+28
+28
+TORICA_Hardwarelib
+DPS310
+
+
+0
+6
+6
+TORICA_Hardwarelib
+DPS310-Adafruits
+
+
+0
+7
+7
+TORICA_Hardwarelib
+ICS
+
+
+0
+16
+16
+TORICA_Hardwarelib
+JLCPCB(9mm)
+
+
+0
+0
+0
+TORICA_Hardwarelib
+JLCPCB(10.8mm)
+
+
+0
+0
+0
+TORICA_Hardwarelib
+JST_XH_S2B-XH-A_1x02_P2.50mm_Horizontal
+JST XH series connector, S2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator
+connector JST XH horizontal
+0
+2
+2
+TORICA_Hardwarelib
+JST_XH_S3B-XH-A-1_1x03_P2.50mm_Horizontal
+JST XH series connector, S3B-XH-A-1 (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator
+connector JST XH horizontal
+0
+3
+3
+TORICA_Hardwarelib
+JST_XH_S4B-XH-A_1x04_P2.50mm_Horizontal
+JST XH series connector, S4B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator
+connector JST XH horizontal
+0
+4
+4
+TORICA_Hardwarelib
+JST_XH_S5B-XH-A_1x05_P2.50mm_Horizontal
+JST XH series connector, S5B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator
+connector JST XH horizontal
+0
+5
+5
+TORICA_Hardwarelib
+LED_D5.0mm
+LED, diameter 5.0mm, 2 pins, http://cdn-reichelt.de/documents/datenblatt/A500/LL-504BC2E-009.pdf
+LED diameter 5.0mm 2 pins
+0
+2
+2
+TORICA_Hardwarelib
+M3_hole
+
+
+0
+0
+0
+TORICA_Hardwarelib
+MOUDLE14P-2.54-21X17.8MM
+
+
+0
+14
+14
+TORICA_Hardwarelib
+PAM8012
+
+
+0
+6
+6
+TORICA_Hardwarelib
+PinHeader_1x03_P1.00mm_Vertical
+Through hole straight pin header, 1x03, 1.00mm pitch, single row
+Through hole pin header THT 1x03 1.00mm single row
+0
+3
+3
+TORICA_Hardwarelib
+RPi_Pico_SMD_TH
+Through hole straight pin header, 2x20, 2.54mm pitch, double rows
+Through hole pin header THT 2x20 2.54mm double row
+0
+86
+43
+TORICA_Hardwarelib
+Seeeduino XIAO-MOUDLE14P-2.54-21X17.8MM
+
+
+0
+20
+20
+TORICA_Hardwarelib
+Speaker_volume
+
+
+0
+6
+6
+TORICA_Hardwarelib
+TORICA-LOGO
+
+
+0
+0
+0
+TORICA_Hardwarelib
+TORICA-LOGO2
+
+
+0
+0
+0
+TORICA_Hardwarelib
+URM37
+
+
+0
+9
+9
+TORICA_Hardwarelib
+USB_A_4P_Female
+
+
+0
+6
+5
+TORICA_Hardwarelib
+microSD_AE-MICRO-SD-DIP
+
+
+0
+12
+12
+TORICA_Hardwarelib
+torica
+
+
 0
 0
 0

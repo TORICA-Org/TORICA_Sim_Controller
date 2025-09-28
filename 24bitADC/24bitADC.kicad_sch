@@ -2474,7 +2474,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0201_0603Metric_Pad0.64x0.40mm_HandSolder"
 			(at 138.43 119.6848 0)
 			(effects
 				(font
@@ -2542,7 +2542,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TORICA_Hardwarelib:USB_A_4P_Female"
 			(at 198.12 91.44 0)
 			(effects
 				(font
@@ -2733,7 +2733,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 108.712 76.2 90)
 			(effects
 				(font
@@ -2803,7 +2803,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "CN2_CN3:24bitADC_CN2_CN3"
 			(at 54.61 57.15 0)
 			(effects
 				(font
@@ -2879,7 +2879,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric_Pad0.74x0.62mm_HandSolder"
 			(at 102.5652 86.36 0)
 			(effects
 				(font
@@ -3025,7 +3025,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 127 102.108 90)
 			(effects
 				(font
@@ -3095,7 +3095,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 127 109.728 90)
 			(effects
 				(font
@@ -3231,7 +3231,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
 			(at 108.712 88.9 90)
 			(effects
 				(font
@@ -3301,7 +3301,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric_Pad0.74x0.62mm_HandSolder"
 			(at 181.3052 81.28 0)
 			(effects
 				(font
@@ -3371,7 +3371,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0201_0603Metric_Pad0.64x0.40mm_HandSolder"
 			(at 135.5852 107.95 0)
 			(effects
 				(font
